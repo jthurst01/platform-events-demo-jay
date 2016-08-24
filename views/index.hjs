@@ -14,12 +14,14 @@
         console.log(results);
         console.log(results);
         //$('<div>Received Platform Event: '+results['payload']['Name']+'</div>').prependTo('#messages');
-        $('#messages').append('<p>Notification ' +
+        $('#messages').append('<br/><p>Notification ' +
                'Replay Id: ' + results['event']['replayId'] + '<br>' +
                'Event Created Date: ' + results['payload']['replayId'] + '<br/>' + 
-               'Customer Id: ' + results['payload']['CustomerId__c'] + '<br/>' + 
-               'Printer Model: ' + results['payload']['Printer_Model__c'] + '<br/>' + 
-              'Printer Ink Level: ' + results['payload']['Printer_Ink_Level__c'] + '</p>');
+               'Account Executive:: ' + results['payload']['Account_Executive__c'] + '<br/>' + 
+               'Contact by Date: ' + results['payload']['Contact_by_Date__c'] + '<br/>' + 
+              'Email Address: ' + results['payload']['Email_Address__c'] + '</p>' +
+              'Phone Number: ' + results['payload']['Phone_Number__c'] + '</p>' +
+              'Contact by Date: ' + results['payload']['Contact_by_Date__c'] + '<br/>');
       })
     </script>
   </head>

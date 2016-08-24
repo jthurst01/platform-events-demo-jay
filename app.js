@@ -35,7 +35,7 @@ org.authenticate({ username: config.USERNAME, password: config.PASSWORD }, funct
   }
 
   // subscribe to a pushtopic
-  var str = org.stream({ topic: 'Printer_Ink_Level__e', isPlatformEvent: true, oauth: oauth });
+  var str = org.stream({ topic: 'Order_Response__e', isPlatformEvent: true, oauth: oauth });
 
   str.on('connect', function(){
     console.log('Connected to pushtopic: ' + config.PUSH_TOPIC);

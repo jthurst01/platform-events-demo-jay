@@ -1,4 +1,6 @@
 var express = require('express');
+var router = express.Router();
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -33,7 +35,7 @@ org.authenticate({ username: config.USERNAME, password: config.PASSWORD }, funct
   }
 
   // subscribe to a pushtopic
-  var str = org.stream({ topic: config.PUSH_TOPIC, oauth: oauth });
+  var str = org.stream({ topic: 'Printer_Ink_Level__e', isPlatformEvent: true, oauth: oauth });
 
   str.on('connect', function(){
     console.log('Connected to pushtopic: ' + config.PUSH_TOPIC);
@@ -44,12 +46,30 @@ org.authenticate({ username: config.USERNAME, password: config.PASSWORD }, funct
   });
 
   str.on('data', function(data) {
-    console.log('Received the following from pushtopic ---');
+    console.log('Received the following from event stream ---');
     console.log(data);
     // emit the record to be displayed on the page
     socket.emit('record-processed', JSON.stringify(data));
   });
 
+});
+
+router.post('/', function(req, res, next) {
+ 
+  var pie = nforce.createSObject('Printer_Ink_Level__e');
+  pie.set('CustomerId__c', req.body.customerId);
+  pie.set('Printer_Model__c', req.body.printerModel);
+  pie.set('Printer_Ink_Level__c', req.body.printerInkLevel);
+
+  //console.log('req.customerId = ' + req.body.customerId);
+  //console.log('req.printerModel = ' + req.body.printerModel);
+  //console.log('req.printerInkLevel = ' + req.body.printerInkLevel);
+  //console.log(util.inspect(pie, { showHidden: true, depth: null }));
+  
+  org.insert({ sobject: pie })
+    .then(
+      res.redirect('/')
+    )
 });
 
 app.set('port', process.env.PORT || 3001);

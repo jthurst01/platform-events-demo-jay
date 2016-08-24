@@ -3,6 +3,7 @@
   <head>
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://platform-events-node.herokuapp.com/assets/styles/salesforce-lightning-design-system.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
@@ -11,13 +12,30 @@
       socket.on('record-processed', function (data) {
         var results = JSON.parse(data);
         console.log(results);
-        $('<div>Received Account: '+results['sobject']['Name']+'</div>').prependTo('#messages');
+        console.log(results);
+        //$('<div>Received Platform Event: '+results['payload']['Name']+'</div>').prependTo('#messages');
+        $('#messages').append('<p>Notification ' +
+               'Replay Id: ' + results['event']['replayId'] + '<br>' +
+               'Event Created Date: ' + results['payload']['replayId'] + '<br/>' + 
+               'Customer Id: ' + results['payload']['CustomerId__c'] + '<br/>' + 
+               'Printer Model: ' + results['payload']['Printer_Model__c'] + '<br/>' + 
+              'Printer Ink Level: ' + results['payload']['Printer_Ink_Level__c'] + '</p>');
       })
     </script>
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Waiting for messages to magically appear below. Go update an account to watch the magic!</p>
-    <div id="messages"></div>
+    <div id="leftcontent">
+      <div class="innertube">
+        <div id='platform-events-node'>
+          <iframe src="http://platform-events-node.herokuapp.com/" frameborder=0 width="100%" height="500px" scrolling="no"></iframe>
+        </div>
+      </div>
+    </div>
+    <div id="rightcontent">
+      <div class="innertuberight">
+        <div id="messages" class="slds-text-heading--label slds-m-vertical--large slds-m-horizontal--large"><h1>{{ title }}</h1></div>
+      </div>
+    </div>  
   </body>
 </html>
+

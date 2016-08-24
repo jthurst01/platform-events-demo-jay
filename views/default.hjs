@@ -24,18 +24,7 @@
     </script>
   </head>
   <body>
-    <div id="leftcontent">
-      <div class="innertube">
-        <div id='platform-events-node'>
-          <iframe src="http://platform-events-node.herokuapp.com/" frameborder=0 width="100%" height="500px" scrolling="no"></iframe>
-        </div>
-      </div>
-    </div>
-    <div id="rightcontent">
-      <div class="innertuberight">
         <div id="messages" class="slds-text-heading--label slds-m-vertical--large slds-m-horizontal--large"><h1>{{ title }}</h1></div>
-      </div>
-    </div>  
   </body>
 </html>
 

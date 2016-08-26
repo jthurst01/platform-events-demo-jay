@@ -33,7 +33,7 @@ var org = nforce.createConnection({
   clientId: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
   redirectUri: config.CALLBACK_URL + '/oauth/_callback',
-  mode: 'multi',
+  mode: 'single',
   environment: config.ENVIRONMENT  // optional, sandbox or production, production default
 });
 
@@ -47,8 +47,8 @@ org.authenticate({ username: config.USERNAME, password: config.PASSWORD }, funct
 
   // subscribe to a pushtopic
   //var str = org.stream({ topic: 'Order_Response__e', isPlatformEvent: true, oauth: oauth });
-  var client = org.createStreamClient();
-  var str = client.subscribe({ topic: 'Order_Response__e', isPlatformEvent: true });
+  var cj = org.createStreamClient();
+  var str = cj.subscribe({ topic: 'Order_Response__e', isPlatformEvent: true });
 
   str.on('connect', function(){
     console.log('Connected to pushtopic: ' + config.PUSH_TOPIC);

@@ -39,3 +39,12 @@ a {
 	margin: 15px; /*Margins for inner DIV inside each DIV (to provide padding)*/
 	margin-top:  40px;
 }
+
+#rightcontent2{
+	position: fixed;
+	top: 0; 
+	left: 1200px; /*Set left value to WidthOfFrameDiv*/
+	right: 0;
+	bottom: 0;
+	overflow: auto; 
+}

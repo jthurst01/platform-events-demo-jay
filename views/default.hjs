@@ -18,5 +18,10 @@
         <iframe src="http://platform-events-demo.herokuapp.com/" frameborder=0 width="100%" height="10000px" scrolling="yes"></iframe>
       </div>
     </div>  
+    <div id="rightcontent2">
+      <div class="innertuberight">
+        <iframe src="localhost:3001" frameborder=0 width="100%" height="10000px" scrolling="yes"></iframe>
+      </div>
+    </div>  
   </body>
 </html>

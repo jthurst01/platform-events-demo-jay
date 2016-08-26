@@ -12,11 +12,20 @@ var nforce = require('nforce');
 var routes = require('./routes/index');
 
 var app = express();
-var server = require('http').Server(app);
+//var server = require('http').Server(app);
 // attach socket.io and listen
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
 // get a reference to the socket once a client connects
-var socket = io.sockets.on('connection', function (socket) { });
+//var socket = io.sockets.on('connection', function (socket) { });
+
+const socketIO = require('socket.io');
+const PORT = process.env.PORT || 3001;
+const server = require('http').Server(app);
+const io = socketIO(server);
+io.on('connection', function (socket) {
+	console.log('Client connected');
+	socket.on('disconnect', () => console.log('Client disconnected'));
+});
 
 var org = nforce.createConnection({
   clientId: config.CLIENT_ID,
@@ -49,27 +58,9 @@ org.authenticate({ username: config.USERNAME, password: config.PASSWORD }, funct
     console.log('Received the following from event stream ---');
     console.log(data);
     // emit the record to be displayed on the page
-    socket.emit('record-processed', JSON.stringify(data));
+    io.emit('record-processed', JSON.stringify(data));
   });
 
-});
-
-router.post('/', function(req, res, next) {
- 
-  var pie = nforce.createSObject('Printer_Ink_Level__e');
-  pie.set('CustomerId__c', req.body.customerId);
-  pie.set('Printer_Model__c', req.body.printerModel);
-  pie.set('Printer_Ink_Level__c', req.body.printerInkLevel);
-
-  //console.log('req.customerId = ' + req.body.customerId);
-  //console.log('req.printerModel = ' + req.body.printerModel);
-  //console.log('req.printerInkLevel = ' + req.body.printerInkLevel);
-  //console.log(util.inspect(pie, { showHidden: true, depth: null }));
-  
-  org.insert({ sobject: pie })
-    .then(
-      res.redirect('/')
-    )
 });
 
 app.set('port', process.env.PORT || 3001);

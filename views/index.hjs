@@ -8,25 +8,25 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
       var url = window.location.href.split("/");
-      var socket =  io.connect(url[0] + "//" + url[2]);    
+      //var socket =  io.connect(url[0] + "//" + url[2]);    
+      var socket = io();
       socket.on('record-processed', function (data) {
         var results = JSON.parse(data);
         console.log(results);
         console.log(results);
         //$('<div>Received Platform Event: '+results['payload']['Name']+'</div>').prependTo('#messages');
-        $('#messages').append('<br/><p>Notification ' +
-               'Replay Id: ' + results['event']['replayId'] + '<br>' +
-               'Event Created Date: ' + results['payload']['replayId'] + '<br/>' + 
-               'Account Executive:: ' + results['payload']['Account_Executive__c'] + '<br/>' + 
-               'Contact by Date: ' + results['payload']['Contact_by_Date__c'] + '<br/>' + 
-              'Email Address: ' + results['payload']['Email_Address__c'] + '</p>' +
-              'Phone Number: ' + results['payload']['Phone_Number__c'] + '</p>' +
-              'Contact by Date: ' + results['payload']['Contact_by_Date__c'] + '<br/>');
+        $('#messages').append('<br/><p>Notification </br>' +
+               'Replay Id:           ' + results['event']['replayId'] + '<br>' +
+               'Account Executive:   ' + results['payload']['Account_Executive__c'] + '<br/>' + 
+              'Email Address:       ' + results['payload']['Email_Address__c'] + '<br/>' +
+              'Phone Number:        ' + results['payload']['Phone_Number__c'] + '<br/>' +
+              'Contact by Date:     ' + results['payload']['Contact_by_Date__c'] + '<br/>' +
+              '===========================<br/></p>');
       })
     </script>
   </head>
   <body>
-        <div id="messages" class="slds-text-heading--label slds-m-vertical--large slds-m-horizontal--large"><h1>{{ title }}</h1></div> 
+    <div id="messages" class="slds-text-heading--label slds-m-vertical--large slds-m-horizontal--large"><h1>Platform Event Live Stream</h1></div> 
   </body>
 </html>
 
